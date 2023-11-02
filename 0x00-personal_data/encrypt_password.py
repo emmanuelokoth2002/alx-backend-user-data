@@ -5,6 +5,7 @@ Hashing and Salting Passwords
 
 import bcrypt
 
+
 def hash_password(password: str) -> bytes:
     """
     Hashes and salts the provided password using bcrypt.
