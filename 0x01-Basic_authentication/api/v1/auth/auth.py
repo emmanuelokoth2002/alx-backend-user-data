@@ -5,10 +5,12 @@ Module for User Authentication
 from flask import request
 from typing import List, TypeVar
 
+
 class Auth:
     ''' Class handling authentication '''
 
-    def require_auth(self, requested_path: str, exclude_list: List[str]) -> bool:
+    def require_auth(self, requested_path: str,
+                     exclude_list: List[str]) -> bool:
         ''' Check if authentication is required '''
         if requested_path is None:
             return True
