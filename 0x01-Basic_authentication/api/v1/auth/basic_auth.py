@@ -7,11 +7,12 @@ import base64
 from typing import TypeVar
 from models.user import User
 
+
 class BasicAuth(Auth):
     ''' Class handling Basic Authentication '''
 
     def extract_base64_authorization_header(self,
-                                           auth_header: str) -> str:
+                                            auth_header: str) -> str:
         ''' Extracts the Base64 part from Authorization header '''
         if auth_header is None:
             return None
