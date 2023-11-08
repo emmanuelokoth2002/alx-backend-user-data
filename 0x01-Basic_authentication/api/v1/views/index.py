@@ -1,34 +1,17 @@
 #!/usr/bin/env python3
-""" Module containing Index Views
+
 """
-from flask import jsonify, abort
-from api.v1.views import app_views
+Endpoints for the Flask app.
+"""
 
-@app_views.route('/status', methods=['GET'], strict_slashes=False)
-def status() -> str:
-    """ Endpoint: GET /api/v1/status
-    Returns:
-      - Status of the API
-    """
-    return jsonify({"status": "OK"})
+from flask import Blueprint, abort
 
-@app_views.route('/stats/', strict_slashes=False)
-def stats() -> str:
-    """ Endpoint: GET /api/v1/stats
-    Returns:
-      - Number of each object
-    """
-    from models.user import User
-    stats = {}
-    stats['users'] = User.count()
-    return jsonify(stats)
+index = Blueprint('index', __name__)
+
 
 @index.route('/api/v1/unauthorized', methods=['GET'])
-def unauthorized():
-    abort(401)
-
-@app_views.route('/forbidden', methods=['GET'], strict_slashes=False)
-def forbidden() -> str:
-    """ Endpoint: Forbidden Error Handler
+def unauthorized_endpoint():
     """
-    abort(403)
+    Endpoint to raise a 401 error.
+    """
+    abort(401)
