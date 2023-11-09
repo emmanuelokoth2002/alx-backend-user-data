@@ -4,6 +4,7 @@ Module for User Authentication
 '''
 from flask import request
 from typing import List, TypeVar
+import os
 
 
 class Auth:
@@ -41,3 +42,19 @@ class Auth:
     def current_user(self, req=None) -> TypeVar('User'):
         ''' Fetch the current user '''
         return None
+
+    def session_cookie(self, request=None):
+        """
+        Returns a cookie value from a request.
+
+        Args:
+            request: Flask request object.
+
+        Returns:
+            Cookie value from the request's cookies dictionary.
+        """
+        if request is None:
+            return None
+
+        session_name = os.getenv("SESSION_NAME", "_my_session_id")
+        return request.cookies.get(session_name)
