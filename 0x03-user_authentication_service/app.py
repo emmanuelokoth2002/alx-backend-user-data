@@ -21,28 +21,17 @@ def welcome():
     return jsonify({"message": "Bienvenue"})
 
 
-@app.route("/users", methods=["POST"])
-def register_user():
-    """
-    Endpoint to register a user.
+@app.route('/users', methods=['POST'], strict_slashes=False)
+def users():
+    """does the register of users"""
+    email = request.form.get('email')
+    password = request.form.get('password')
 
-    Expects form data fields: "email" and "password".
-    Responds with JSON payload based on registration success or failure.
-
-    Returns:
-        jsonify: JSON response based on registration status.
-    """
     try:
-        email = request.form.get("email")
-        password = request.form.get("password")
-
-        new_user = AUTH.register_user(email, password)
-
-        return jsonify({"email": new_user.email, "message": "user
-                        created"}), 200
-
-    except ValueError as e:
-        return jsonify({"message": str(e)}), 400
+        user = AUTH.register_user(email, password)
+        return jsonify({'email': email, 'message': 'user created'})
+    except Exception:
+        return jsonify({'message': 'email already registered'}), 400
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
